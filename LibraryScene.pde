@@ -46,13 +46,9 @@ class LibraryScene extends Scene
           if( chonk.riddleSolved == true ) telescope_tube.isVisible = true;
         }
         if( dialog.isVisible == true ) dialog.display();
-  
-        if ( player_background.position() == player_background.length() ) player_background.rewind();
-        player_background.play();
         
         if( chonk.currentValue == chonk.requiredValue && chonk.riddleSolved == false ) {
-          player_SFX = minim.loadFile("Good_Job2.mp3");
-          player_SFX.play(); 
+          audio.PlaySFX("Good_Job2.mp3");
           chonk.riddleSolved = true;
         }
         
@@ -66,13 +62,11 @@ class LibraryScene extends Scene
         if( dialog.isVisible == false && chonk.riddleImg.isVisible == false && chonk.subImg.isVisible == false ) {
           if ( leftButton.isPointInside( mouseX , mouseY ) ) {
             stateHandler.changeStateTo( ROOM_SCENE );
-            player_background.pause();
-            player_background = minim.loadFile("Warm_Casual.mp3");
+            audio.PlayMusic("Warm_Casual.mp3");
           }
           if ( rightButton.isPointInside( mouseX , mouseY ) ) {
             stateHandler.changeStateTo( BREW_SCENE );
-            player_background.pause();
-            player_background = minim.loadFile("Groovy_Tower.mp3");
+            audio.PlayMusic("Groovy_Tower.mp3");
           }
         
           book_aphro.handleMousePressed();

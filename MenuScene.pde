@@ -12,21 +12,16 @@ class MenuScene extends Scene
         super.doStepWhileInState();
         startButton.display();
         quitButton.display();
-        if ( player_background.position() == player_background.length() ) player_background.rewind();
-        player_background.play();
     }
 
     void handleMousePressed() {
         if ( startButton.isPointInside( mouseX , mouseY ) ) {
             stateHandler.changeStateTo( ROOM_SCENE );
-            player_background.pause();
-            player_background = minim.loadFile("Warm_Casual.mp3");
-            player_SFX = minim.loadFile("Pop_Button2.mp3");
-            player_SFX.play();
+            audio.PlaySFX("Pop_Button2.mp3");
+            audio.PlayMusic("Warm_Casual.mp3");
         }
         if ( quitButton.isPointInside( mouseX , mouseY ) ) {
-            player_SFX = minim.loadFile("Pop_Button2.mp3");
-            player_SFX.play();
+            audio.PlaySFX("Pop_Button2.mp3");
             exit();
         }
         inventory.handleMousePressed();

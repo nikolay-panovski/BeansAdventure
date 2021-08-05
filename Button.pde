@@ -127,8 +127,7 @@ class DigitButton extends TextButton {
         if( digit >= 9 ) digit = 0;
         else digit++;
       }
-      player_SFX = minim.loadFile("Lock_number_Switch.mp3");
-      player_SFX.play();
+      audio.PlaySFX("Lock_number_Switch.mp3");
     }
     
     void display() {

@@ -44,9 +44,6 @@ class BrewScene extends Scene
       
       bat.display();
       if( dialog.isVisible == true ) dialog.display();
-      
-      if ( player_background.position() == player_background.length() ) player_background.rewind();
-      player_background.play();
     }
 
     void handleMousePressed() {
@@ -54,8 +51,7 @@ class BrewScene extends Scene
         if ( leftButton.isPointInside( mouseX , mouseY ) ) {
             stateHandler.changeStateTo( LIBRARY_SCENE );
             inventory.isVisible = false;
-            player_background.pause();
-            player_background = minim.loadFile("Fireplace_Loop.mp3");
+            audio.PlayMusic("Fireplace_Loop.mp3");
         }
         if ( bat.isPointInside( mouseX , mouseY ) ) bat.handleMousePressed();
         inventory.handleMousePressed();
@@ -70,8 +66,7 @@ class BrewScene extends Scene
                 }
             }
           telescope_lens.isVisible = true;
-          player_SFX = minim.loadFile("Good_Job2.mp3");
-          player_SFX.play();
+          audio.PlaySFX("Good_Job2.mp3");
         }
   }
     

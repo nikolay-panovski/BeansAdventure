@@ -31,7 +31,7 @@ class State
     public void doStepWhileInState()         {} 
     public void leaveState( State newState ) {} 
 
-    public void handleMousePressed()  {} //<>//
+    public void handleMousePressed()  {} //<>// //<>// //<>//
     public void handleMouseClicked()  {}
     public void handleMouseReleased() {}
     public void handleMouseDragged()  {}
@@ -85,7 +85,7 @@ class EmbeddedState extends State {
     void keyPressed()  {}
     void keyReleased() {}
 
-    void handleMousePressed()  { mousePressed();  } //<>//
+    void handleMousePressed()  { mousePressed();  } //<>// //<>// //<>//
     void handleMouseClicked()  { mouseClicked();  }
     void handleMouseReleased() { mouseReleased(); }
     void handleMouseDragged()  { mouseDragged();  }
@@ -145,7 +145,7 @@ class StateHandler
         if ( currentState != null ) {
             currentState.doStepWhileInState();
             changeStateIfNecessary();
-            traceIfChanged( name , getStateName() );  // remove for no tracing //<>//
+            traceIfChanged( name , getStateName() );  // remove for no tracing //<>// //<>// //<>//
         }
     }
 

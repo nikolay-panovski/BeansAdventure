@@ -29,15 +29,11 @@ class RoomScene extends Scene
         beans.display();
         chest.display();
         if( chest.currentValue == chest.requiredValue && chest.riddleSolved == false ) {
-          player_SFX = minim.loadFile("Good_Job2.mp3");
-          player_SFX.play();
+          audio.PlaySFX("Good_Job2.mp3");
           chest.riddleSolved = true;
         }
         if( dialog.isVisible == true ) dialog.display();
         scrolls.display();
-        
-        if ( player_background.position() == player_background.length() ) player_background.rewind();
-        player_background.play();
         
       for( int i = 0; i < container.size(); i++ ) {
         RiddleItem item = container.get(i);
@@ -66,13 +62,11 @@ class RoomScene extends Scene
       if( chest.subImg.isVisible == false && scrolls.subImg.isVisible == false && dialog.isVisible == false ) {
         if ( downButton.isPointInside( mouseX , mouseY ) ) {
             stateHandler.changeStateTo( LIBRARY_SCENE );
-            player_background.pause();
-            player_background = minim.loadFile("Fireplace_Loop.mp3");
+            audio.PlayMusic("Fireplace_Loop.mp3");
         }
         if( telescope.isVisible == true && telescope.isPointInside( mouseX , mouseY ) ) {
             stateHandler.changeStateTo( END_SCENE ); 
-            player_background.pause();
-            player_background = minim.loadFile("another_chance_to_live.mp3");
+            audio.PlayMusic("another_chance_to_live.mp3");
         }
       }
       if( dialog.isVisible == true ) dialog.handleMousePressed();

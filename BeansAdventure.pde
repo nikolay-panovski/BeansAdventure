@@ -1,13 +1,7 @@
 // ============ STATE HANDLER, STATES, (hopefully) PERSISTENT OBJECTS + AUDIO ============
-import ddf.minim.*;
-
-Minim minim;
-AudioPlayer player_background;
-AudioPlayer player_SFX;
-int currentGain = 12;
-
 PFont mainFont;
 PImage cursorImage;
+MinimAudio audio;
 
 StateHandler stateHandler;
 
@@ -24,11 +18,8 @@ DialogBox dialog = new DialogBox( "dialog_box.png", 140, 720 );    // (140, 720)
 void setup() {
     size( 1280, 960, FX2D );
     noStroke();
-    minim = new Minim(this);
-    player_background = minim.loadFile("another_chance_to_live.mp3");    // why is THIS global
-    player_background.setGain(currentGain);
-    player_SFX = minim.loadFile("Pop_Button2.mp3");
-    player_SFX.setGain( -(currentGain / 1.5) );
+    audio = new MinimAudio(this, "another_chance_to_live.mp3", "Pop_Button2.mp3");
+    audio.SetGain(MinimAudio.DEFAULT_GAIN);
     mainFont = createFont( "ArbeiBerry-rg3Ky.ttf", 32 );
     cursorImage = loadImage( "cursor.png" );
     cursor(cursorImage);
