@@ -14,6 +14,13 @@ final State     END_SCENE = new     EndScene();
 Inventory inventory = new Inventory( "inventory_color.png", 300, 0 );
 
 DialogBox dialog = new DialogBox( "dialog_box.png", 140, 720 );    // (140, 720) if needed
+final DialogTextDict dialogDict = new DialogTextDict();
+
+public PImage             beans;
+public PImage beans_hamsterdark;
+public PImage beansdark_hamster;
+public PImage     beans_batdark;
+public PImage     beansdark_bat;
 
 void setup() {
     size( 1280, 960, FX2D );
@@ -25,6 +32,12 @@ void setup() {
     cursor(cursorImage);
     stateHandler = new StateHandler( "Example game" );
     stateHandler.changeStateTo( MENU_SCENE );
+    
+    beans = loadImage("beans.png");
+    beans_hamsterdark = loadImage("beans_hamsterdark.png");
+    beansdark_hamster = loadImage("beansdark_hamster.png");
+    beans_batdark = loadImage("beans_batdark.png");
+    beansdark_bat = loadImage("beansdark_bat.png");
 }
 
 

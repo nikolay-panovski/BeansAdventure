@@ -16,6 +16,7 @@ class MenuScene extends Scene
 
     void handleMousePressed() {
         if ( startButton.isPointInside( mouseX , mouseY ) ) {
+            dialog.Trigger(DialogTextDict.introText, beans);
             stateHandler.changeStateTo( ROOM_SCENE );
             audio.PlaySFX("Pop_Button2.mp3");
             audio.PlayMusic("Warm_Casual.mp3");
