@@ -5,7 +5,7 @@ class BrewScene extends Scene
   
     ImageObject    leftButton = new ImageObject( "arrowLeft.png"  ,   60, 550 );
 
-    RiddleCharacterBat bat = new RiddleCharacterBat( "bat_color.png",  840, 320 );
+    RiddleCharacterBat bat = new RiddleCharacterBat( "bat_color.png",  840, 320, "", "" );
     
     RiddleItem           milk = new  RiddleItem( "milk_bottle.png", 540, 160 );
     RiddleItem          hairs = new  RiddleItem( "cat_hair.png",   840, 260 );

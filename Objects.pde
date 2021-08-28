@@ -108,19 +108,56 @@ class RiddleChest extends ImageObject {
   }
 }
 
-class RiddleCharacterChonk extends ImageObject {
-  int currentValue;
-  int requiredValue = 31524;                    // mind the character order when the value is scrambled from 12345!
+public class RiddleCharacter extends ImageObject {
+  // Capable of tracking the state of the relevant riddle (not started, started, solved).
+  // Contains fields for a static image (riddle explanation) and an image with buttons drawn over (riddle execution). 
+  // Contains lists to exchange objects between a starting list of imaged items (unordered - see riddleValue @ ImageObject,
+  // owned etc.) and a "solution" list of items (correct order, all <number> of items).
+  
   boolean riddleStarted = false;
   boolean riddleSolved = false;
-
-  ImageObject riddleImg = new ImageObject( "openbook_puzzle.png", 0, 0 );
-  ImageObject subImg;
-
+  
+  ImageObject explImg;
+  ImageObject execImg;
+  
   ArrayList<ImageObject> sender = new ArrayList<ImageObject>();
   ArrayList<ImageObject> receiver = new ArrayList<ImageObject>();
+  
+  RiddleCharacter(String imageFilename, int newX, int newY, String displayExplImg, String displayExecImg) {
+    super( imageFilename, newX, newY );
+    if (displayExplImg.length() != 0) {
+      explImg = new ImageObject(displayExplImg, 0, 0);
+      explImg.isVisible = false;  // TODO: automate in another way? requires restructurig ImageObject
+    }
+    if (displayExecImg.length() != 0) {
+      execImg = new ImageObject(displayExecImg, 0, 0);
+      execImg.isVisible = false;
+    }
+  }
+  
+  public void TriggerExplanation() {
+    if (explImg != null) explImg.isVisible = true;
+    dialog.dialogEndSignal = false;
+  }
+  
+  public void TriggerExecution() {
+    if (execImg != null) execImg.isVisible = true;
+    dialog.dialogEndSignal = false;
+  }
+}
 
-  ImageObject answerHint = new ImageObject( "button_hermes.png", 812, 104 );  // Hermes (image only)    // all other names below are of the CORRECT order. this does not mean ANY corresponds to the ImageObject on the same row.
+class RiddleCharacterChonk extends RiddleCharacter {
+  int currentValue;
+  int requiredValue = 31524;                    // mind the character order when the value is scrambled from 12345!
+
+  //ImageObject riddleImg = new ImageObject( "openbook_puzzle.png", 0, 0 );
+  //ImageObject subImg;
+
+  //ArrayList<ImageObject> sender = new ArrayList<ImageObject>();
+  //ArrayList<ImageObject> receiver = new ArrayList<ImageObject>();
+
+  ImageObject answerHint = new ImageObject( "button_hermes.png", 812, 104 );  // Hermes (image only)    
+  // all other names in comments below are of the CORRECT order. this does not mean ANY corresponds to the ImageObject on the same row.
   ImageObject answer1;                          // Aphrodite
   ImageObject answer2;                          // Ares
   ImageObject answer3;                          // Zeus
@@ -128,12 +165,10 @@ class RiddleCharacterChonk extends ImageObject {
   ImageObject answer5;                          // Hades
   ImageObject resetButton = new ImageObject( "button_reset.png", 262, 104 );
 
-  RiddleCharacterChonk( String imageFilename, int newX, int newY, String displayImg ) {
-    super( imageFilename, newX, newY );
-    characterCounter = 5;
-    subImg = new ImageObject( displayImg, 0, 0 );
-    riddleImg.isVisible = false;
-    subImg.isVisible = false;
+  RiddleCharacterChonk( String imageFilename, int newX, int newY, String displayExplImg, String displayExecImg ) {
+    super( imageFilename, newX, newY, displayExplImg, displayExecImg );
+    //riddleImg.isVisible = false;
+    //subImg.isVisible = false;
     answer1 = new ImageObject( "button_ares.png", 262, 224 );            // current starting position to draw frow (262, 224)
     answer1.riddleValue = 1;
     sender.add( answer1 );
@@ -153,9 +188,35 @@ class RiddleCharacterChonk extends ImageObject {
 
   void handleMousePressed() {
 
-    dialog.Trigger(DialogTextDict.chonkPuzzleInit, beans_hamsterdark, beansdark_hamster);
+    
     //====================== DIALOGUE PART ======================
-    if ( subImg.isVisible == false && isPointInside ( mouseX, mouseY ) ) {
+    
+    /** if (click on chonk && not obstructed by riddle imgs) {
+     check whether riddle has started and whether has ended {
+      dialog triggers here 
+     }
+     
+     after a dialog has ended, trigger riddle explanation OR execution OR reward themselves
+     play book sound (or reward sound)
+    }
+      **/
+      
+      if (isPointInside(mouseX, mouseY) && execImg.isVisible == false) {
+        if (riddleStarted == false) {
+          dialog.Trigger(DialogTextDict.chonkPuzzleInit, beans_hamsterdark, beansdark_hamster);
+
+        }
+        else if (riddleStarted == true && explImg.isVisible == false) {
+          dialog.Trigger(DialogTextDict.chonkPuzzleAfterBook, beans_hamsterdark, beansdark_hamster);
+
+        }
+      }
+      
+      else if ( execImg.isVisible == true && ! isPointInRectangle( mouseX, mouseY, 105, 71, 1020, 771 ) ) {    // exit puzzle: only if you click out of the img
+        execImg.isVisible = false;
+      }
+    
+    /**if ( subImg.isVisible == false && isPointInside ( mouseX, mouseY ) ) {
       if ( riddleStarted == false  ) {
         if ( dialog.counter + dialog.characterCounter <= 5 ) { 
           dialog.counter = 0;
@@ -169,11 +230,14 @@ class RiddleCharacterChonk extends ImageObject {
         audio.PlaySFX("Book_Page.mp3");
         subImg.isVisible = true;
       }
-      /*else if( riddleStarted == true && riddleImg.isVisible == true ) {
+      else if( riddleStarted == true && riddleImg.isVisible == true ) {
        //dialog.counter = 0;
        riddleImg.isVisible = false;
-       }*/
-    } else if ( subImg.isVisible == true && ! isPointInRectangle( mouseX, mouseY, 105, 71, 1020, 771 ) ) {    // exit puzzle: only if you click out of subImg
+       }
+    } 
+    
+    
+    else if ( subImg.isVisible == true && ! isPointInRectangle( mouseX, mouseY, 105, 71, 1020, 771 ) ) {    // exit puzzle: only if you click out of subImg
       subImg.isVisible = false;
     }
 
@@ -189,10 +253,11 @@ class RiddleCharacterChonk extends ImageObject {
       riddleImg.isVisible = true;
       audio.PlaySFX("Book_Page.mp3");
     }
+    **/
 
     //====================== RIDDLE PART ======================
 
-    if ( subImg.isVisible && buffer == 0 ) {
+    if ( execImg.isVisible && buffer == 0 ) {
       for ( int i = 0; i < sender.size(); i++ ) {
         ImageObject button = sender.get(i);
         if ( button.isPointInside ( mouseX, mouseY ) && buffer == 0  ) {
@@ -232,13 +297,22 @@ class RiddleCharacterChonk extends ImageObject {
   }
 
   void display() {
-    if ( riddleImg.isVisible || subImg.isVisible ) buffer--;
+    println(dialog.dialogEndSignal);
+          if (dialog.dialogEndSignal == true) { //<>//
+            if (riddleStarted == false) {
+              TriggerExplanation();
+              riddleStarted = true;
+            }
+            else TriggerExecution();
+          }
+          
+    if ( explImg.isVisible || execImg.isVisible ) buffer--;
     if ( buffer < 0) buffer = 0;
     if ( receiver.size() == 0 ) currentValue = 0;
     super.display();
-    riddleImg.display();
-    subImg.display();
-    if ( subImg.isVisible ) {
+    explImg.display();
+    execImg.display();
+    if ( execImg.isVisible ) {
       answerHint.display();
       resetButton.display();
       stroke( 0 );
@@ -261,16 +335,16 @@ class RiddleCharacterChonk extends ImageObject {
   }
 }
 
-class RiddleCharacterBat extends ImageObject {
+class RiddleCharacterBat extends RiddleCharacter {
   //characterCounter;
   boolean riddleSolved = false;
 
-  RiddleCharacterBat( String imageFilename, int newX, int newY ) {
-    super( imageFilename, newX, newY );
+  RiddleCharacterBat( String imageFilename, int newX, int newY, String displayExplImg, String displayExecImg ) {
+    super( imageFilename, newX, newY, displayExplImg, displayExecImg );
   }
 
   void handleMousePressed() {
-    if ( dialog.isVisible == false && dialog.characterCounter < 23 ) {
+    /**if ( dialog.isVisible == false && dialog.characterCounter < 23 ) {
       dialog.counter = 0;
       dialog.characterCounter = 23;
       dialog.isVisible = true;
@@ -292,6 +366,7 @@ class RiddleCharacterBat extends ImageObject {
     if ( inventory.nrOfRiddleItems == 5 ) {
       riddleSolved = true;
     }
+    **/
   }
 
 

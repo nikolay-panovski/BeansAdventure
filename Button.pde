@@ -36,11 +36,10 @@ class NoImageObject {                  //object for attaching a different rect c
 class ImageObject {
     int x;
     int y;
-    int w;
-    int h;
+    private int w;
+    private int h;
     int riddleValue = 0;
     int buffer = 15;
-    int characterCounter;
     boolean isVisible = true;
 
     String filename;
@@ -144,8 +143,9 @@ class DigitButton extends TextButton {
 }
 
 class DialogBox extends ImageObject {
-    int counter = 0;
+    int counter = 0;  // obsolete, TODO: remove implementations of variable
     int textCounter = 0;
+    boolean dialogEndSignal = false;
     String currentText;
     PImage currentImage;
     PImage mainImage;
@@ -159,6 +159,7 @@ class DialogBox extends ImageObject {
     
     public void Trigger(StringList textCluster, PImage pMainImg) {
       if (textCounter != 0) textCounter = 0;
+      dialogEndSignal = false;
       isVisible = true;
       currentTextCluster = textCluster;
       currentText = currentTextCluster.get(0);
@@ -168,6 +169,7 @@ class DialogBox extends ImageObject {
     
     public void Trigger(StringList textCluster, PImage pMainImg, PImage pSecImg) {
       if (textCounter != 0) textCounter = 0;
+      dialogEndSignal = false;
       isVisible = true;
       currentTextCluster = textCluster;
       currentText = currentTextCluster.get(0);
@@ -176,12 +178,11 @@ class DialogBox extends ImageObject {
       currentImage = mainImage;
     }
     
-    void handleMousePressed() {
-      textCounter++;
-      
-      // exit clause, now dependent on cluster size instead of empty string terminators
+    public void handleMousePressed() {
+      // dialog end clause, now dependent on cluster size instead of empty string terminators
       if( textCounter >= currentTextCluster.size()) {
         isVisible = false;
+        dialogEndSignal = true;
       }
       else currentText = currentTextCluster.get(textCounter);
       
@@ -196,9 +197,11 @@ class DialogBox extends ImageObject {
           currentImage = secImage;
         }
       }
+      
+      textCounter++;
     }
     
-    void display() {
+    public void display() {
       image(currentImage, 0, 0);
       super.display();
       textFont( mainFont );

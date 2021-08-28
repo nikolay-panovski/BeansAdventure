@@ -42,7 +42,7 @@ class RoomScene extends Scene
         if ( item.buffer < 0) item.buffer = 0;
       }
             
-      if( inventory.nrOfTelescopeItems == 2 && dialog.counter + dialog.characterCounter < 42 ) {
+      if( inventory.nrOfTelescopeItems == 2 /**&& dialog.counter + dialog.characterCounter < 42**/ ) {
         super.doStepWhileInState();       
         beans.display();
         chest.display();
@@ -50,7 +50,7 @@ class RoomScene extends Scene
         downButton.display();
         dialog.isVisible = true;
         dialog.counter = 0;
-        dialog.characterCounter = 41;
+        /**dialog.characterCounter = 41;**/
       }
       if( inventory.nrOfTelescopeItems == 3 && telescope.isVisible == false ) {
         telescope.isVisible = true;
@@ -90,7 +90,6 @@ class RoomScene extends Scene
         item.buffer = 0;
         if( item.isVisible ) item.handleMousePressed();
       }
-            println(dialog.counter + dialog.characterCounter);
     }
     
     void handleKeyPressed() {
