@@ -152,11 +152,7 @@ class RiddleCharacterChonk extends ImageObject {
   }
 
   void handleMousePressed() {
-    /**if( dialog.counter + dialog.characterCounter >= 20 ) {
-      dialog.counter = 0;
-      dialog.characterCounter = characterCounter;
-    }
-    **/
+
     dialog.Trigger(DialogTextDict.chonkPuzzleInit, beans_hamsterdark, beansdark_hamster);
     //====================== DIALOGUE PART ======================
     if ( subImg.isVisible == false && isPointInside ( mouseX, mouseY ) ) {

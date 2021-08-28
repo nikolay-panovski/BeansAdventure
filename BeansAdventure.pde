@@ -16,7 +16,7 @@ Inventory inventory = new Inventory( "inventory_color.png", 300, 0 );
 DialogBox dialog = new DialogBox( "dialog_box.png", 140, 720 );    // (140, 720) if needed
 final DialogTextDict dialogDict = new DialogTextDict();
 
-public PImage             beans;
+public PImage     beans_default;
 public PImage beans_hamsterdark;
 public PImage beansdark_hamster;
 public PImage     beans_batdark;
@@ -65,7 +65,7 @@ private void initStateHandler(State startScene) {
 }
 
 private void initImages() {
-  beans = loadImage("beans.png");
+  beans_default = loadImage("beans.png");
   beans_hamsterdark = loadImage("beans_hamsterdark.png");
   beansdark_hamster = loadImage("beansdark_hamster.png");
   beans_batdark = loadImage("beans_batdark.png");

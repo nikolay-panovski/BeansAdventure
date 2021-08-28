@@ -74,6 +74,10 @@ class RoomScene extends Scene
       if( chest.subImg.isVisible == false && dialog.isVisible == false ) scrolls.handleMousePressed();
       if( chest.riddleSolved == true && telescope_eye.isVisible == false ) telescope_eye.isVisible = true;
       
+      // -- test of new DialogBox.Trigger() --
+      if (beans.isVisible == true && beans.isPointInside(mouseX, mouseY)) dialog.Trigger(DialogTextDict.introText, beans_default);
+      // -- end of test --
+      
       inventory.nrOfTelescopeItems = 0;
       for( int c = 0; c < inventory.items.size(); c++ ) {
           RiddleItem checkItem = inventory.items.get(c);

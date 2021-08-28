@@ -7,7 +7,8 @@ DigitButton(TextButton)
 DialogBox(ImageObject)
 */
 
-class NoImageObject {                  //requires manual labor, do not use in industrial quantities :)
+class NoImageObject {                  //object for attaching a different rect collision to oddly-shaped images
+                                       //requires manual labor, do not use in industrial quantities :)
     int x;
     int y;
     int w;
@@ -154,49 +155,10 @@ class DialogBox extends ImageObject {
     
     DialogBox( String imageFilename, int newX, int newY ) {
         super( imageFilename, newX, newY );
-        
-        //beans init 4 || first item 0 / previously sections subdivided - 5, 10, 12, 17, 22, 24, 28, 31 / now each section will be of length 6 
-        
-        //beans-chonk 4 then display puzzle book
-        
-        //beans-chonk 1 then book (player is in puzzle)
-        
-        //beans-chonk 4 then telescope piece spawn (dead)
-        
-        //beans-bat 5 
-        
-        //beans-bat 1 then screen (player is in puzzle) (dead)
-        
-        /**textManager.append("");
-        textManager.append("");
-        textManager.append("");
-        textManager.append("");
-        textManager.append("");
-        **/
-        //beans-bat 3 then telescope piece spawn (dead)
-        
-        /**textManager.append("");
-        textManager.append("");
-        textManager.append("");
-        **/
-        //beans re-init 2 (before chest)
-        
-        /**textManager.append("");
-        textManager.append("");
-        textManager.append("");
-        textManager.append("");
-        **/
-        //beans re-init 1 (after chest) then telescope piece (and telescope) spawn
-        
-        /**textManager.append("");
-        textManager.append("");
-        textManager.append("");
-        textManager.append("");
-        textManager.append("");
-        **/
     }
     
     public void Trigger(StringList textCluster, PImage pMainImg) {
+      if (textCounter != 0) textCounter = 0;
       isVisible = true;
       currentTextCluster = textCluster;
       currentText = currentTextCluster.get(0);
@@ -205,6 +167,7 @@ class DialogBox extends ImageObject {
     }
     
     public void Trigger(StringList textCluster, PImage pMainImg, PImage pSecImg) {
+      if (textCounter != 0) textCounter = 0;
       isVisible = true;
       currentTextCluster = textCluster;
       currentText = currentTextCluster.get(0);
@@ -215,24 +178,12 @@ class DialogBox extends ImageObject {
     
     void handleMousePressed() {
       textCounter++;
-      println(currentTextCluster);
-      currentText = currentTextCluster.get(textCounter);
-      if( currentText.length() == 0) {
+      
+      // exit clause, now dependent on cluster size instead of empty string terminators
+      if( textCounter >= currentTextCluster.size()) {
         isVisible = false;
       }
-      if( counter + characterCounter == 44 ) {
-        counter = 0;
-        characterCounter = 52;
-      }
-      
-      /**if( counter + characterCounter < 5 ) currentImage = beans;
-      else if ( counter + characterCounter >= 5 && counter + characterCounter <= 10 && ( counter + characterCounter ) % 2 == 0 ) currentImage = beans_hamsterdark;
-      else if ( counter + characterCounter >= 5 && counter + characterCounter <= 10 && ( counter + characterCounter ) % 2 == 1 ) currentImage = beansdark_hamster;
-      else if ( counter + characterCounter == 12 ) currentImage = beansdark_hamster;
-      else if ( counter + characterCounter >= 23 && counter + characterCounter <= 29 && ( counter + characterCounter ) % 2 == 0 ) currentImage = beans_batdark;
-      else if ( counter + characterCounter >= 23 && counter + characterCounter <= 29 && ( counter + characterCounter ) % 2 == 1 ) currentImage = beansdark_bat;
-      else if( counter + characterCounter > 39 ) currentImage = beans;
-      **/
+      else currentText = currentTextCluster.get(textCounter);
       
       if (secImage != null) {
         if (textCounter % 2 == 0) 
@@ -248,7 +199,6 @@ class DialogBox extends ImageObject {
     }
     
     void display() {
-
       image(currentImage, 0, 0);
       super.display();
       textFont( mainFont );

@@ -56,8 +56,7 @@ class LibraryScene extends Scene
     }
 
     void handleMousePressed() {
-        if( dialog.isVisible == false || dialog.counter + dialog.characterCounter == 9
-                                      || dialog.counter + dialog.characterCounter == 13) chonk.handleMousePressed();
+        if( dialog.isVisible == false) chonk.handleMousePressed();
         
         if( dialog.isVisible == false && chonk.riddleImg.isVisible == false && chonk.subImg.isVisible == false ) {
           if ( leftButton.isPointInside( mouseX , mouseY ) ) {
