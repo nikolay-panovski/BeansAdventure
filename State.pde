@@ -169,6 +169,7 @@ class StateHandler
             nextState.enterState( currentState );
             currentState = nextState;
             nextState = null;
+            dialog.dialogEndSignal = false;
         }
     }
 }

@@ -190,70 +190,29 @@ class RiddleCharacterChonk extends RiddleCharacter {
 
     
     //====================== DIALOGUE PART ======================
-    
-    /** if (click on chonk && not obstructed by riddle imgs) {
-     check whether riddle has started and whether has ended {
-      dialog triggers here 
-     }
-     
-     after a dialog has ended, trigger riddle explanation OR execution OR reward themselves
-     play book sound (or reward sound)
-    }
-      **/
-      
       if (isPointInside(mouseX, mouseY) && execImg.isVisible == false) {
-        if (riddleStarted == false) {
-          dialog.Trigger(DialogTextDict.chonkPuzzleInit, beans_hamsterdark, beansdark_hamster);
-
+        if (riddleSolved == true) {
+          dialog.Trigger(DialogTextDict.chonkPuzzleAftermath, beansdark_hamster, beans_hamsterdark);
         }
-        else if (riddleStarted == true && explImg.isVisible == false) {
-          dialog.Trigger(DialogTextDict.chonkPuzzleAfterBook, beans_hamsterdark, beansdark_hamster);
-
+        else {
+          if (riddleStarted == false) {
+            dialog.Trigger(DialogTextDict.chonkPuzzleInit, beans_hamsterdark, beansdark_hamster);
+          }
+          else if (riddleStarted == true && explImg.isVisible == false) {
+            dialog.Trigger(DialogTextDict.chonkPuzzleAfterBook, beans_hamsterdark, beansdark_hamster);
+          }
         }
       }
       
+      else if ( explImg.isVisible == true && ! isPointInRectangle( mouseX, mouseY, 105, 71, 1020, 771 ) ) {    // exit puzzle: only if you click out of the img
+        explImg.isVisible = false;
+        if (riddleStarted == true) TriggerExecution();
+      }
       else if ( execImg.isVisible == true && ! isPointInRectangle( mouseX, mouseY, 105, 71, 1020, 771 ) ) {    // exit puzzle: only if you click out of the img
         execImg.isVisible = false;
+        if (riddleSolved == true) dialog.Trigger(DialogTextDict.chonkPuzzleSolved, beans_hamsterdark, beansdark_hamster);
       }
-    
-    /**if ( subImg.isVisible == false && isPointInside ( mouseX, mouseY ) ) {
-      if ( riddleStarted == false  ) {
-        if ( dialog.counter + dialog.characterCounter <= 5 ) { 
-          dialog.counter = 0;
-          dialog.isVisible = true;
-        }
-        dialog.characterCounter = characterCounter;
-      } else if ( riddleStarted == true && riddleImg.isVisible == false ) {
-        dialog.isVisible = true;
-        dialog.counter = 0;
-        //if( dialog.counter + dialog.characterCounter == 13 ) riddleImg.isVisible = true;
-        audio.PlaySFX("Book_Page.mp3");
-        subImg.isVisible = true;
-      }
-      else if( riddleStarted == true && riddleImg.isVisible == true ) {
-       //dialog.counter = 0;
-       riddleImg.isVisible = false;
-       }
-    } 
-    
-    
-    else if ( subImg.isVisible == true && ! isPointInRectangle( mouseX, mouseY, 105, 71, 1020, 771 ) ) {    // exit puzzle: only if you click out of subImg
-      subImg.isVisible = false;
-    }
 
-    if ( riddleImg.isVisible == true && riddleStarted == false ) {
-      riddleStarted = true;
-      riddleImg.isVisible = false;
-      dialog.characterCounter = characterCounter;
-      dialog.counter = 0;
-      println(dialog.counter + dialog.characterCounter);
-    }
-    if ( dialog.counter + dialog.characterCounter == 9 ) {
-      characterCounter = 11;
-      riddleImg.isVisible = true;
-      audio.PlaySFX("Book_Page.mp3");
-    }
-    **/
 
     //====================== RIDDLE PART ======================
 
@@ -297,14 +256,12 @@ class RiddleCharacterChonk extends RiddleCharacter {
   }
 
   void display() {
-    println(dialog.dialogEndSignal);
-          if (dialog.dialogEndSignal == true) { //<>//
-            if (riddleStarted == false) {
-              TriggerExplanation();
-              riddleStarted = true;
-            }
-            else TriggerExecution();
-          }
+    if (riddleSolved == false && dialog.dialogEndSignal == true) { //<>//
+      TriggerExplanation();
+      if (riddleStarted == false) { 
+        riddleStarted = true;
+      }
+    }
           
     if ( explImg.isVisible || execImg.isVisible ) buffer--;
     if ( buffer < 0) buffer = 0;

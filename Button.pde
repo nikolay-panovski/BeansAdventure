@@ -164,6 +164,7 @@ class DialogBox extends ImageObject {
       currentTextCluster = textCluster;
       currentText = currentTextCluster.get(0);
       mainImage = pMainImg;
+      secImage = null;
       currentImage = mainImage;
     }
     

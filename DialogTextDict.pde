@@ -4,19 +4,21 @@ public static class DialogTextDict {
    public static StringList chonkPuzzleInit = new StringList(); 
    public static StringList chonkPuzzleAfterBook = new StringList(); 
    public static StringList chonkPuzzleSolved = new StringList(); 
+   public static StringList chonkPuzzleAftermath = new StringList(); 
    public static StringList batPuzzleInit = new StringList(); 
    public static StringList batPuzzleCheckout = new StringList(); 
    public static StringList batPuzzleSolved = new StringList(); 
    public static StringList bedroomPuzzleInit = new StringList(); 
    public static StringList bedroomPuzzleSolved = new StringList(); 
    
-   // append individual text entries to the lists here
+   // append individual text entries to the lists below
    
    // TABLE OF CONTENTS (for preservation):
-   //beans init 4 || first item 0 / previously sections subdivided - 5, 10, 12, 17, 22, 24, 28, 31 / now each section will be of length 6 
+   //beans init 4 || first item 0
    //beans-chonk 4 then display puzzle book
    //beans-chonk 1 then book (player is in puzzle)
-   //beans-chonk 4 then telescope piece spawn (dead)
+   //beans-chonk 4 then telescope piece spawn
+   //beans-chonk 1 chatter if returning after having solved puzzle (NEW)
    //beans-bat 5 
    //beans-bat 1 then screen (player is in puzzle) (dead)
    //beans-bat 3 then telescope piece spawn (dead)
@@ -34,13 +36,15 @@ public static class DialogTextDict {
       chonkPuzzleInit.append("Just a guess. So I guess I'll have to solve a riddle to get a part\nof my telescope back?");
       chonkPuzzleInit.append("Exactly. I'm too lazy to actually tell you the riddle, so have this\nbook. The riddle is in there and it tells you what to do.\nOnce you have an answer and want to try it,\ncome back to me.");
       
-      //chonkPuzzleAfterBook.append("I'll remind you what the riddle is. Of course, you can try to\nanswer after that.");
-      chonkPuzzleAfterBook.append("To remind yourself of what the riddle is, click on the moon.\nNow try to answer it. If nothing happens after you\norder all gods, click the 'Reset' button.");
+      chonkPuzzleAfterBook.append("I'll remind you what the riddle is. Of course, you can try to\nanswer after that. If nothing happens after you\norder all gods, click the 'Reset' button.");
+      //chonkPuzzleAfterBook.append("To remind yourself of what the riddle is, click on the moon.\nNow try to answer it. If nothing happens after you\norder all gods, click the 'Reset' button.");
       
       chonkPuzzleSolved.append("We got the code!");
       chonkPuzzleSolved.append("Well done! Here you go, you deserve this piece!");
-      chonkPuzzleSolved.append("Thanks Chonk. Okay, player, let's go look for another piece. Where could it be though?");
-      chonkPuzzleSolved.append("You could try looking in the brewery room. You should know where it is.");
+      chonkPuzzleSolved.append("Thanks Chonk. Okay, player, let's go look for another piece.\nWhere could it be though?");
+      chonkPuzzleSolved.append("You could try looking in the brewery room. You should know\nwhere it is.");
+      
+      chonkPuzzleAftermath.append("So, how's your friend DEBUG doing? Have you checked out the\nother rooms?");
       
       batPuzzleInit.append("Who are you? Why are you here? Have you seen pieces of a\ntelescope laying around anywhere?");
       batPuzzleInit.append("Hello there! No worries! I am here because the tower asked\nme to, I can give you a potion that will\nallow you to find a part of your telescope.\nOnce you find the ingredients, the piece will be revealed.");
