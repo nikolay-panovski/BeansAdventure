@@ -1,4 +1,4 @@
-// ============ STATE HANDLER, STATES, (hopefully) PERSISTENT OBJECTS + AUDIO ============
+// ============ FIELD/OBJECT INITIALIZATION ============
 PFont mainFont;
 PImage cursorImage;
 MinimAudio audio;
@@ -22,22 +22,16 @@ public PImage beansdark_hamster;
 public PImage     beans_batdark;
 public PImage     beansdark_bat;
 
+// ============ SETUP/DRAW ============
+
 void setup() {
     size( 1280, 960, FX2D );
-    noStroke();
-    audio = new MinimAudio(this, "another_chance_to_live.mp3", "Pop_Button2.mp3");
-    audio.SetGain(MinimAudio.DEFAULT_GAIN);
-    mainFont = createFont( "ArbeiBerry-rg3Ky.ttf", 32 );
-    cursorImage = loadImage( "cursor.png" );
-    cursor(cursorImage);
-    stateHandler = new StateHandler( "Example game" );
-    stateHandler.changeStateTo( MENU_SCENE );
-    
-    beans = loadImage("beans.png");
-    beans_hamsterdark = loadImage("beans_hamsterdark.png");
-    beansdark_hamster = loadImage("beansdark_hamster.png");
-    beans_batdark = loadImage("beans_batdark.png");
-    beansdark_bat = loadImage("beansdark_bat.png");
+    noStroke(); 
+    initAudioPlayer();
+    initTextFont();
+    customizeCursorImage();
+    initStateHandler(MENU_SCENE);  // change start scene name here
+    initImages();
 }
 
 
@@ -46,6 +40,37 @@ void draw() {
     if( stateHandler.getStateName() != "MenuScene" ) inventory.display();
 }
 
+
+// ============ INIT METHODS ============
+
+// Initializers for stuff before/in setup(), organized in methods for better readability/less visual clutter.
+
+private void initAudioPlayer() {
+  audio = new MinimAudio(this, "another_chance_to_live.mp3", "Pop_Button2.mp3");
+  audio.SetGain(MinimAudio.DEFAULT_GAIN);
+}
+
+private void initTextFont() {
+  mainFont = createFont( "ArbeiBerry-rg3Ky.ttf", 32 );
+}
+
+private void customizeCursorImage() {
+  cursorImage = loadImage( "cursor.png" );
+  cursor(cursorImage);
+}
+
+private void initStateHandler(State startScene) {
+  stateHandler = new StateHandler( "Example game" );
+  stateHandler.changeStateTo( startScene ); 
+}
+
+private void initImages() {
+  beans = loadImage("beans.png");
+  beans_hamsterdark = loadImage("beans_hamsterdark.png");
+  beansdark_hamster = loadImage("beansdark_hamster.png");
+  beans_batdark = loadImage("beans_batdark.png");
+  beansdark_bat = loadImage("beansdark_bat.png");
+}
 
 // ============ EVENT HANDLERS ============
 
