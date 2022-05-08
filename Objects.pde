@@ -256,6 +256,14 @@ class RiddleCharacterChonk extends RiddleCharacter {
   }
 
   void display() {
+    // display self (ImageObject default)
+    super.display();
+    // display sub-images (ImageObject default, which btw has the stupid isVisible clause within itself so it's unreadable here)
+    explImg.display();
+    execImg.display();
+    
+    // if character has clicked and triggered the initial dialogue and it has ended, show puzzle book image immediately
+    // also mark riddle as started if it isn't, so that on next click the puzzle area with buttons image is shown
     if (riddleSolved == false && dialog.dialogEndSignal == true) { //<>//
       TriggerExplanation();
       if (riddleStarted == false) { 
@@ -263,12 +271,13 @@ class RiddleCharacterChonk extends RiddleCharacter {
       }
     }
           
+    // handle "buffer" timer cooldown for clicks (which prevents double clicks)
+    // (decrement but only when a clickable image is visible, and keep buffer at 0 minimum)
     if ( explImg.isVisible || execImg.isVisible ) buffer--;
     if ( buffer < 0) buffer = 0;
-    if ( receiver.size() == 0 ) currentValue = 0;
-    super.display();
-    explImg.display();
-    execImg.display();
+    
+    
+    // if image with the puzzle with buttons is visible, display all owned (by this object, good job) buttons and their slots
     if ( execImg.isVisible ) {
       answerHint.display();
       resetButton.display();
