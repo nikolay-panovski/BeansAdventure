@@ -150,12 +150,6 @@ class RiddleCharacterChonk extends RiddleCharacter {
   int currentValue;
   int requiredValue = 31524;                    // mind the character order when the value is scrambled from 12345!
 
-  //ImageObject riddleImg = new ImageObject( "openbook_puzzle.png", 0, 0 );
-  //ImageObject subImg;
-
-  //ArrayList<ImageObject> sender = new ArrayList<ImageObject>();
-  //ArrayList<ImageObject> receiver = new ArrayList<ImageObject>();
-
   ImageObject answerHint = new ImageObject( "button_hermes.png", 812, 104 );  // Hermes (image only)    
   // all other names in comments below are of the CORRECT order. this does not mean ANY corresponds to the ImageObject on the same row.
   ImageObject answer1;                          // Aphrodite
@@ -302,41 +296,59 @@ class RiddleCharacterChonk extends RiddleCharacter {
 }
 
 class RiddleCharacterBat extends RiddleCharacter {
-  //characterCounter;
-  boolean riddleSolved = false;
 
   RiddleCharacterBat( String imageFilename, int newX, int newY, String displayExplImg, String displayExecImg ) {
     super( imageFilename, newX, newY, displayExplImg, displayExecImg );
   }
 
   void handleMousePressed() {
-    /**if ( dialog.isVisible == false && dialog.characterCounter < 23 ) {
-      dialog.counter = 0;
-      dialog.characterCounter = 23;
-      dialog.isVisible = true;
+    if (isPointInside(mouseX, mouseY)) {
+      //markRiddleSolvedAfterItems();  // check for riddle solve only on mouse press - slightly lighter execution + forces talking to bat to solve riddle
+      
+      triggerActiveDialog();
     }
-
-    if ( dialog.counter + dialog.characterCounter == 30 ) {
-      dialog.counter = 0;
-      dialog.characterCounter = 29;
-      if( isPointInside (mouseX, mouseY) ) dialog.isVisible = true;
+  }
+  
+  private void triggerActiveDialog() {
+    // TODO: to switch/case (state-based)
+      if (riddleSolved == true) {
+        dialog.Trigger(DialogTextDict.batPuzzleAftermath, beansdark_bat, beans_batdark);    // TODO: auto trigger(?) batPuzzleSolved on riddleSolved, and never again?
+      }
+      else {
+        if (riddleStarted == false) {
+          dialog.Trigger(DialogTextDict.batPuzzleInit, beans_batdark, beansdark_bat);
+        }
+        else if (riddleStarted == true && riddleSolved == false) {
+          dialog.Trigger(DialogTextDict.batPuzzleReminder, beansdark_bat, beans_batdark);
+        }
+      } 
+  }
+  
+  private void markRiddleStartedAfterDialog() {
+    if (riddleStarted == false && dialog.dialogEndSignal == true) {
+      riddleStarted = true;
     }
-
-
-
-    if ( dialog.counter + dialog.characterCounter > 31 ) {    // spam failsafe
-      dialog.counter = 0;
-      dialog.characterCounter = 31;
-    }
-    
-    if ( inventory.nrOfRiddleItems == 5 ) {
+  }
+  
+  private void markRiddleSolvedAfterItems() {
+    if ( riddleSolved == false && inventory.nrOfRiddleItems == 5 ) {
       riddleSolved = true;
+      dialog.Trigger(DialogTextDict.batPuzzleSolved, beansdark_bat, beans_batdark);    // ~~does the TODO above, but its place is technically not here
     }
-    **/
   }
 
-
   void display() {
+    // display self (ImageObject default)
     super.display();
+    
+    // if character has clicked and triggered the initial dialogue and it has ended, mark riddle as started
+    // (updates active dialogue) (an Update()'s job, but is it a display()'s job?)
+    markRiddleStartedAfterDialog();
+    
+    // CURRENT puzzle state: if character has collected all the items, immediately mark riddle as solved
+    // TODO: not that; re-implement sub-screen for transfer, or leave the player to click for another dialogue
+    /**/
+    markRiddleSolvedAfterItems();
+    /**/
   }
 }

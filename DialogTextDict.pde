@@ -6,8 +6,10 @@ public static class DialogTextDict {
    public static StringList chonkPuzzleSolved = new StringList(); 
    public static StringList chonkPuzzleAftermath = new StringList(); 
    public static StringList batPuzzleInit = new StringList(); 
+   public static StringList batPuzzleReminder = new StringList(); 
    public static StringList batPuzzleCheckout = new StringList(); 
    public static StringList batPuzzleSolved = new StringList(); 
+   public static StringList batPuzzleAftermath = new StringList(); 
    public static StringList bedroomPuzzleInit = new StringList(); 
    public static StringList bedroomPuzzleSolved = new StringList(); 
    
@@ -52,11 +54,15 @@ public static class DialogTextDict {
       batPuzzleInit.append("The recipe is: Milk, cat hair, leaves, tuna, and another potion.\nHowever, I've lost the ingredients, so could you find them\nfor me? I'm sure they're all in this room. Also, try looking in\nyour bedroom. Maybe the last part wasn't the tower's doing.");
       batPuzzleInit.append("Okay, player, could you help me out? Find the different\ningredients in the room.");
       
-      batPuzzleCheckout.append("You've got all the ingredients? If that's the case, you can hand\nthem to me now and I'll spawn that piece. Otherwise\n try to find the rest of them.");
+      batPuzzleReminder.append("Do you need a reminder on the recipe? Here it is!\nMilk, cat hair, leaves, tuna, and another potion.\nGood luck!");
       
-      batPuzzleSolved.append("There you go! That's a nice potion! Well, you deserve this piece now. Good luck finding the last one! :D");
-      batPuzzleSolved.append("Thanks, that's another part collected! Well done player! Where do we go now though?");
-      batPuzzleSolved.append("Have you tried looking in your bedroom? Maybe the last part wasn't the tower's doing.");
+      //batPuzzleCheckout.append("You've got all the ingredients? If that's the case, you can hand\nthem to me now and I'll spawn that piece. Otherwise\n try to find the rest of them.");
+      
+      batPuzzleSolved.append("There you go! That's a nice potion! Well, you deserve\nthis piece now. Good luck finding the last one! :D");
+      batPuzzleSolved.append("Thanks, that's another part collected!\nWell done player! Where do we go now though?");
+      batPuzzleSolved.append("Have you tried looking in your bedroom?\nMaybe the last part wasn't the tower's doing.");
+      
+      batPuzzleAftermath.append("##I'd like to chat, but if you're seeing\n this message, your journey is going well,\n so please go do something else.");
       
       bedroomPuzzleInit.append("The bat has a point, I recently cleaned up my room a little\nbit and stuffed a lot of things into that chest over there.");
       bedroomPuzzleInit.append("However, I forgot how to solve the puzzle to open the chest.\nThere should be a scroll with clues somewhere around\nhere. Could you help me out again, player?");
