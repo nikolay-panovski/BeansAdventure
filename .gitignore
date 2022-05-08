@@ -1,4 +1,17 @@
+# Ignore text files (there can be only notes or explanations in there, no I/O using txts in this game)
+*.txt
+
+# Ignore images (those are misc)
+*.png
+
+# Screw .DS_Store
 .DS_Store
+
+# For clarity: data is not ignored. Files there are final and do not get changed, 
+# so no new commits should arise,
+# and they are not infinitely many so the size should not be a problem.
+
+# Ignore build folders
 applet
 application.linux-arm64
 application.linux-armv6hf
@@ -8,4 +21,3 @@ application.windows32
 application.windows64
 application.macosx
 out
-*.txt
