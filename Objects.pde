@@ -5,6 +5,8 @@ table of contents:
  RiddleChest
  RiddleCharacterChonk
  RiddleCharacterBat
+ 
+ == TODO?: make riddle character out of Beans, because of game start and 3rd puzzle ==
  */
 
 class RiddleItem extends ImageObject {
@@ -15,7 +17,6 @@ class RiddleItem extends ImageObject {
 
   void handleMousePressed() {
     if ( isPointInside ( mouseX, mouseY ) && ! inventory.items.contains( this ) && buffer == 0 ) {
-      println( "handleMousePressed.added" );
       buffer += 15;
       inventory.isVisible = true;
       inventory.items.add( this );
@@ -310,7 +311,7 @@ class RiddleCharacterBat extends RiddleCharacter {
   }
   
   private void triggerActiveDialog() {
-    // TODO: to switch/case (state-based)
+    // TODO: to state-based (NOT if/else or switch/case)
       if (riddleSolved == true) {
         dialog.Trigger(DialogTextDict.batPuzzleAftermath, beansdark_bat, beans_batdark);    // TODO: auto trigger(?) batPuzzleSolved on riddleSolved, and never again?
       }
@@ -334,6 +335,7 @@ class RiddleCharacterBat extends RiddleCharacter {
     if ( riddleSolved == false && inventory.nrOfRiddleItems == 5 ) {
       riddleSolved = true;
       dialog.Trigger(DialogTextDict.batPuzzleSolved, beansdark_bat, beans_batdark);    // ~~does the TODO above, but its place is technically not here
+      dialog.textCounter++;  // same dirty fix to the same problem as in starting Beans dialog (RoomScene)
     }
   }
 

@@ -41,6 +41,18 @@ void draw() {
 }
 
 
+
+   
+   // many public accesses (on RoomScene display()), this is bad
+   void checkNrOfInventoryTelescopeItems() {
+      inventory.nrOfTelescopeItems = 0;
+      for( int c = 0; c < inventory.items.size(); c++ ) {
+          RiddleItem checkItem = inventory.items.get(c);
+          if( checkItem.filename.substring( 0, min( 9, checkItem.filename.length() ) ).equals( "telescope" ) ) inventory.nrOfTelescopeItems++;
+      } 
+   }
+
+
 // ============ INIT METHODS ============
 
 // Initializers for stuff before/in setup(), organized in methods for better readability/less visual clutter.

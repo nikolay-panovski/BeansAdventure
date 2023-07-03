@@ -10,6 +10,9 @@ class RoomScene extends Scene
     RiddleBook    scrolls = new RiddleBook( 450, 380, 150, 80, "scroll_text.png" );
     
     RiddleItem telescope_eye = new  RiddleItem( "telescope_eyepiece.png",   640, 605 );
+    
+    boolean firstTime = true;
+    boolean firstTimeAfterBatRiddleSolved = true;
 
     RoomScene() {
         super( "bean_room_color.png" );
@@ -23,6 +26,15 @@ class RoomScene extends Scene
         if ( ! ( ( Scene ) stateHandler.currentState ).container.contains( telescope_eye ) && ! inventory.items.contains( telescope_eye ) ) container.add( telescope_eye );       
         downButton.display();
         if( telescope.isVisible == true ) telescope.display();
+        
+        // very dirty: override first dialog automatic appearance (without being preceded by a click) with manual Trigger() + counter advance
+        // in order to "fix" the "first click not advancing text" bug
+        // (?!??) bugs every other instance of the same Beans dialog (if the character is clicked again in the same room)
+        if (firstTime == true && dialog.isVisible == true) {
+          dialog.Trigger(DialogTextDict.introText, beans_default);
+          dialog.textCounter++;
+          firstTime = false;
+        }
         
         if( dialog.isVisible == true && inventory.nrOfTelescopeItems != 2 ) beans.isVisible = false;
         else if( dialog.isVisible == false ) beans.isVisible = true;
@@ -41,21 +53,18 @@ class RoomScene extends Scene
         item.buffer--;
         if ( item.buffer < 0) item.buffer = 0;
       }
-            
-      if( inventory.nrOfTelescopeItems == 2 /**&& dialog.counter + dialog.characterCounter < 42**/ ) {
-        super.doStepWhileInState();       
-        beans.display();
-        chest.display();
-        scrolls.display();
-        downButton.display();
-        dialog.isVisible = true;
-        dialog.counter = 0;
-        /**dialog.characterCounter = 41;**/
+      
+      checkNrOfInventoryTelescopeItems();
+      
+      // dirty: access of public variables
+      if (((BrewScene)BREW_SCENE).bat.riddleSolved == true && firstTimeAfterBatRiddleSolved == true) {
+        dialog.Trigger(DialogTextDict.bedroomPuzzleInit, beans_default);
+        firstTimeAfterBatRiddleSolved = false;
       }
+      
       if( inventory.nrOfTelescopeItems == 3 && telescope.isVisible == false ) {
         telescope.isVisible = true;
       }
-      
     }
 
     void handleMousePressed() {
@@ -77,12 +86,6 @@ class RoomScene extends Scene
       // -- test of new DialogBox.Trigger() --
       if (beans.isVisible == true && beans.isPointInside(mouseX, mouseY)) dialog.Trigger(DialogTextDict.introText, beans_default);
       // -- end of test --
-      
-      inventory.nrOfTelescopeItems = 0;
-      for( int c = 0; c < inventory.items.size(); c++ ) {
-          RiddleItem checkItem = inventory.items.get(c);
-          if( checkItem.filename.substring( 0, min( 9, checkItem.filename.length() ) ).equals( "telescope" ) ) inventory.nrOfTelescopeItems++;
-      }
       
       inventory.handleMousePressed();
       for( int i = 0; i < container.size(); i++ ) {

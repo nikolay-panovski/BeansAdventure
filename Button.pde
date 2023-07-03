@@ -180,13 +180,14 @@ class DialogBox extends ImageObject {
     }
     
     public void handleMousePressed() {
-      // dialog end clause, now dependent on cluster size instead of empty string terminators
+      // check for dialog end or actually serve next text
       if( textCounter >= currentTextCluster.size()) {
         isVisible = false;
         dialogEndSignal = true;
       }
       else currentText = currentTextCluster.get(textCounter);
       
+      // bounce between character images if this is an actual dialog between two characters
       if (secImage != null) {
         if (textCounter % 2 == 0) 
         {
@@ -199,6 +200,7 @@ class DialogBox extends ImageObject {
         }
       }
       
+      // advance text counter (but not the text to display - hacky)
       textCounter++;
     }
     

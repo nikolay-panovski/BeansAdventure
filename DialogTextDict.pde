@@ -13,6 +13,8 @@ public static class DialogTextDict {
    public static StringList bedroomPuzzleInit = new StringList(); 
    public static StringList bedroomPuzzleSolved = new StringList(); 
    
+   public static StringList endSceneFinale = new StringList();
+   
    // append individual text entries to the lists below
    
    // TABLE OF CONTENTS (for preservation):
@@ -31,6 +33,7 @@ public static class DialogTextDict {
       introText.append("Hello! My name is Beans the cat, and I live in this tower. The place \nyou're standing in right now is my bedroom. I had a telescope in\nhere and I wanted to use it tonight to observe the annual\nfull moon. However, it's broken and I need your help to fix it.");
       introText.append("There are 3 pieces hidden somewhere in this tower and I need\nyour help to find them. My tower has a mind of its own and likes\nto mess around with me, so there is probably a twist to getting\nthe parts back. Please help me find them! We'll be a great team!");
       introText.append("Let's see... where might the parts be? Let's check the\nlibrary room first. Those books might be helpful if I read\nthem after all.");
+      introText.append("If you are done reading something, just press outside\nof it to close it again.");  // added for navigation clarity for popup windows
       introText.append("Oh, by the way, feel free to see what we have collected\nwith the 'I' button. You can press 'I' again to\nhide that out of view.");
       
       chonkPuzzleInit.append("Let me guess, you're here because the tower wanted you\nto be?");
@@ -46,7 +49,7 @@ public static class DialogTextDict {
       chonkPuzzleSolved.append("Thanks Chonk. Okay, player, let's go look for another piece.\nWhere could it be though?");
       chonkPuzzleSolved.append("You could try looking in the brewery room. You should know\nwhere it is.");
       
-      chonkPuzzleAftermath.append("So, how's your friend DEBUG doing? Have you checked out the\nother rooms?");
+      chonkPuzzleAftermath.append("So, how's your bat friend doing? Have you checked out the\nother rooms?");
       
       batPuzzleInit.append("Who are you? Why are you here? Have you seen pieces of a\ntelescope laying around anywhere?");
       batPuzzleInit.append("Hello there! No worries! I am here because the tower asked\nme to, I can give you a potion that will\nallow you to find a part of your telescope.\nOnce you find the ingredients, the piece will be revealed.");
@@ -62,11 +65,13 @@ public static class DialogTextDict {
       batPuzzleSolved.append("Thanks, that's another part collected!\nWell done player! Where do we go now though?");
       batPuzzleSolved.append("Have you tried looking in your bedroom?\nMaybe the last part wasn't the tower's doing.");
       
-      batPuzzleAftermath.append("##I'd like to chat, but if you're seeing\n this message, your journey is going well,\n so please go do something else.");
+      batPuzzleAftermath.append("I'd like to chat, but if you're seeing\n this message, your journey is going well,\n so please go do something else.");
       
       bedroomPuzzleInit.append("The bat has a point, I recently cleaned up my room a little\nbit and stuffed a lot of things into that chest over there.");
       bedroomPuzzleInit.append("However, I forgot how to solve the puzzle to open the chest.\nThere should be a scroll with clues somewhere around\nhere. Could you help me out again, player?");
       
       bedroomPuzzleSolved.append("Well done! Maybe I could finally assemble my telescope again to look at the moon!");
+      
+      endSceneFinale.append("Thank you for the help! My journey\nends here, just like this game.\nLet's see if they create more content\nin the future!");
    }
 }
