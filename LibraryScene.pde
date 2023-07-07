@@ -14,8 +14,6 @@ class LibraryScene extends Scene
     RiddleBook      book_poseidon = new RiddleBook( 510, 604,  80, 100, "openbook_poseidon.png" );
     RiddleBook          book_zeus = new RiddleBook( 700, 805, 100,  90, "openbook_zeus.png" );
     
-      RiddleBook       debug_puzzle = new RiddleBook( 950, 0, 100,  120, "openbook_puzzle.png" );    // TODO: remove / click on the moon to display puzzle book.
-    
     RiddleItem     telescope_tube = new RiddleItem( "telescope_tube.png", 600, 700 );
 
 
@@ -38,7 +36,6 @@ class LibraryScene extends Scene
           book_hades.display();
           book_poseidon.display();
           book_zeus.display();
-            debug_puzzle.display();
           for( int i = 0; i < container.size(); i++ ) {
             RiddleItem item = container.get(i);
             if( item != telescope_tube ) item.display();
@@ -74,7 +71,6 @@ class LibraryScene extends Scene
           book_hades.handleMousePressed();
           book_poseidon.handleMousePressed();
           book_zeus.handleMousePressed();
-            debug_puzzle.handleMousePressed();
           inventory.handleMousePressed();
           //telescope_tube.handleMousePressed();
         }
