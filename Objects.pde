@@ -5,6 +5,8 @@ table of contents:
  RiddleChest
  RiddleCharacterChonk
  RiddleCharacterBat
+ 
+ == TODO?: make riddle character out of Beans, because of game start and 3rd puzzle ==
  */
 
 class RiddleItem extends ImageObject {
@@ -15,7 +17,6 @@ class RiddleItem extends ImageObject {
 
   void handleMousePressed() {
     if ( isPointInside ( mouseX, mouseY ) && ! inventory.items.contains( this ) && buffer == 0 ) {
-      println( "handleMousePressed.added" );
       buffer += 15;
       inventory.isVisible = true;
       inventory.items.add( this );
@@ -204,7 +205,7 @@ class RiddleCharacterChonk extends RiddleCharacter {
       }
       else if ( execImg.isVisible == true && ! isPointInRectangle( mouseX, mouseY, 105, 71, 1020, 771 ) ) {    // exit puzzle: only if you click out of the img
         execImg.isVisible = false;
-        if (riddleSolved == true) dialog.Trigger(DialogTextDict.chonkPuzzleSolved, beans_hamsterdark, beansdark_hamster);
+        //if (riddleSolved == true) dialog.Trigger(DialogTextDict.chonkPuzzleSolved, beans_hamsterdark, beansdark_hamster);
       }
 
 
@@ -251,6 +252,7 @@ class RiddleCharacterChonk extends RiddleCharacter {
 
   void display() {
     // display self (ImageObject default)
+    //if (!((explImg != null && explImg.isVisible) || (execImg != null && execImg.isVisible)))  // if any part of the puzzle is active, do not display character
     super.display();
     // display sub-images (ImageObject default, which btw has the stupid isVisible clause within itself so it's unreadable here)
     explImg.display();
@@ -310,7 +312,7 @@ class RiddleCharacterBat extends RiddleCharacter {
   }
   
   private void triggerActiveDialog() {
-    // TODO: to switch/case (state-based)
+    // TODO: to state-based (NOT if/else or switch/case)
       if (riddleSolved == true) {
         dialog.Trigger(DialogTextDict.batPuzzleAftermath, beansdark_bat, beans_batdark);    // TODO: auto trigger(?) batPuzzleSolved on riddleSolved, and never again?
       }
@@ -333,7 +335,9 @@ class RiddleCharacterBat extends RiddleCharacter {
   private void markRiddleSolvedAfterItems() {
     if ( riddleSolved == false && inventory.nrOfRiddleItems == 5 ) {
       riddleSolved = true;
-      dialog.Trigger(DialogTextDict.batPuzzleSolved, beansdark_bat, beans_batdark);    // ~~does the TODO above, but its place is technically not here
+      if (inventory.nrOfTelescopeItems < 2) dialog.Trigger(DialogTextDict.batPuzzleSolved, beansdark_bat, beans_batdark);
+      else                                  dialog.Trigger(DialogTextDict.batPuzzleSolvedLast, beansdark_bat, beans_batdark);
+      dialog.textCounter++;  // same dirty fix to the same problem as in starting Beans dialog (RoomScene)
     }
   }
 

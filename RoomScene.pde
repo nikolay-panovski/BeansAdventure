@@ -10,6 +10,9 @@ class RoomScene extends Scene
     RiddleBook    scrolls = new RiddleBook( 450, 380, 150, 80, "scroll_text.png" );
     
     RiddleItem telescope_eye = new  RiddleItem( "telescope_eyepiece.png",   640, 605 );
+    
+    boolean firstTime = true;
+    boolean firstTimeAfterBatRiddleSolved = true;
 
     RoomScene() {
         super( "bean_room_color.png" );
@@ -24,13 +27,25 @@ class RoomScene extends Scene
         downButton.display();
         if( telescope.isVisible == true ) telescope.display();
         
-        if( dialog.isVisible == true && inventory.nrOfTelescopeItems != 2 ) beans.isVisible = false;
+        // very dirty: override first dialog automatic appearance (without being preceded by a click) with manual Trigger() + counter advance
+        // in order to "fix" the "first click not advancing text" bug
+        // (?!??) bugs every other instance of the same Beans dialog (if the character is clicked again in the same room)
+        if (firstTime == true && dialog.isVisible == true) {
+          dialog.Trigger(DialogTextDict.introText, beans_default);
+          dialog.textCounter++;
+          firstTime = false;
+        }
+        
+        if( (dialog.isVisible == true && inventory.nrOfTelescopeItems != 2)
+            || chest.subImg.isVisible == true || scrolls.subImg.isVisible == true ) beans.isVisible = false;
         else if( dialog.isVisible == false ) beans.isVisible = true;
         beans.display();
         chest.display();
         if( chest.currentValue == chest.requiredValue && chest.riddleSolved == false ) {
           audio.PlaySFX("Good_Job2.mp3");
           chest.riddleSolved = true;
+          chest.subImg.isVisible = false;
+          dialog.Trigger(DialogTextDict.bedroomPuzzleSolved, beans_default);
         }
         if( dialog.isVisible == true ) dialog.display();
         scrolls.display();
@@ -41,21 +56,21 @@ class RoomScene extends Scene
         item.buffer--;
         if ( item.buffer < 0) item.buffer = 0;
       }
-            
-      if( inventory.nrOfTelescopeItems == 2 /**&& dialog.counter + dialog.characterCounter < 42**/ ) {
-        super.doStepWhileInState();       
-        beans.display();
-        chest.display();
-        scrolls.display();
-        downButton.display();
-        dialog.isVisible = true;
-        dialog.counter = 0;
-        /**dialog.characterCounter = 41;**/
+      
+      checkNrOfInventoryTelescopeItems();
+      
+      // dirty: access of public variables
+      if (((BrewScene)BREW_SCENE).bat.riddleSolved == true && firstTimeAfterBatRiddleSolved == true) {
+        if ( inventory.nrOfTelescopeItems == 3 ) dialog.Trigger(DialogTextDict.bedroomFinal, beans_default);
+        else                                     dialog.Trigger(DialogTextDict.bedroomPuzzleInit, beans_default);
+        firstTimeAfterBatRiddleSolved = false;
       }
+      
+      if( chest.riddleSolved == true && dialog.isVisible == false && telescope_eye.isVisible == false ) telescope_eye.isVisible = true;
+      
       if( inventory.nrOfTelescopeItems == 3 && telescope.isVisible == false ) {
         telescope.isVisible = true;
       }
-      
     }
 
     void handleMousePressed() {
@@ -70,19 +85,13 @@ class RoomScene extends Scene
         }
       }
       if( dialog.isVisible == true ) dialog.handleMousePressed();
+      if (dialog.dialogEndSignal == true) return;
       if( scrolls.subImg.isVisible == false && dialog.isVisible == false ) chest.handleMousePressed();
       if( chest.subImg.isVisible == false && dialog.isVisible == false ) scrolls.handleMousePressed();
-      if( chest.riddleSolved == true && telescope_eye.isVisible == false ) telescope_eye.isVisible = true;
       
       // -- test of new DialogBox.Trigger() --
-      if (beans.isVisible == true && beans.isPointInside(mouseX, mouseY)) dialog.Trigger(DialogTextDict.introText, beans_default);
+      if (beans.isVisible == true && beans.isPointInside(mouseX, mouseY)) dialog.Trigger(DialogTextDict.introCallToAction, beans_default);
       // -- end of test --
-      
-      inventory.nrOfTelescopeItems = 0;
-      for( int c = 0; c < inventory.items.size(); c++ ) {
-          RiddleItem checkItem = inventory.items.get(c);
-          if( checkItem.filename.substring( 0, min( 9, checkItem.filename.length() ) ).equals( "telescope" ) ) inventory.nrOfTelescopeItems++;
-      }
       
       inventory.handleMousePressed();
       for( int i = 0; i < container.size(); i++ ) {

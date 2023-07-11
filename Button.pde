@@ -180,13 +180,15 @@ class DialogBox extends ImageObject {
     }
     
     public void handleMousePressed() {
-      // dialog end clause, now dependent on cluster size instead of empty string terminators
+      // check for dialog end or actually serve next text
       if( textCounter >= currentTextCluster.size()) {
         isVisible = false;
         dialogEndSignal = true;
+        ( ( Scene ) stateHandler.currentState ).buffer += 15;
       }
       else currentText = currentTextCluster.get(textCounter);
       
+      // bounce between character images if this is an actual dialog between two characters
       if (secImage != null) {
         if (textCounter % 2 == 0) 
         {
@@ -199,6 +201,7 @@ class DialogBox extends ImageObject {
         }
       }
       
+      // advance text counter (but not the text to display - hacky)
       textCounter++;
     }
     
@@ -207,6 +210,20 @@ class DialogBox extends ImageObject {
       super.display();
       textFont( mainFont );
       fill( 255, 255, 255 );
+      
       text( currentText, 190, 790 );    // (140, 720) + (50, 70)
+      //textWithHighlights( currentText, 190, 790 );
     }   
+    
+    private void textWithHighlights(String text, float x, float y) {
+      String workingSubstring = text;
+      // read last (unprocessed) substring for <b> characters
+      while (workingSubstring.indexOf("<b>") != -1) {
+        // if any is hit, split string into text before <b>, <b>text within</b>, rest of string after </b>
+        workingSubstring.substring(0, workingSubstring.indexOf("<b>"));
+      }
+      // draw any remaining text at the end
+      textSize( mainFontSize );
+      text( workingSubstring, x, y );
+    }
 }

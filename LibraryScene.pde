@@ -14,8 +14,6 @@ class LibraryScene extends Scene
     RiddleBook      book_poseidon = new RiddleBook( 510, 604,  80, 100, "openbook_poseidon.png" );
     RiddleBook          book_zeus = new RiddleBook( 700, 805, 100,  90, "openbook_zeus.png" );
     
-      RiddleBook       debug_puzzle = new RiddleBook( 950, 0, 100,  120, "openbook_puzzle.png" );    // TODO: remove / click on the moon to display puzzle book.
-    
     RiddleItem     telescope_tube = new RiddleItem( "telescope_tube.png", 600, 700 );
 
 
@@ -31,14 +29,7 @@ class LibraryScene extends Scene
         leftButton.display();
         rightButton.display();
 
-        chonk.display();   
         if( chonk.execImg.isVisible == false ) {
-          book_aphro.display();
-          book_ares.display();
-          book_hades.display();
-          book_poseidon.display();
-          book_zeus.display();
-            debug_puzzle.display();
           for( int i = 0; i < container.size(); i++ ) {
             RiddleItem item = container.get(i);
             if( item != telescope_tube ) item.display();
@@ -46,18 +37,34 @@ class LibraryScene extends Scene
           }
           if( chonk.riddleSolved == true ) telescope_tube.isVisible = true;
         }
+        chonk.display();   
+        if( chonk.execImg.isVisible == false ) {
+          book_aphro.display();
+          book_ares.display();
+          book_hades.display();
+          book_poseidon.display();
+          book_zeus.display();
+        }
         if( dialog.isVisible == true ) dialog.display();
         
         if( chonk.currentValue == chonk.requiredValue && chonk.riddleSolved == false ) {
           audio.PlaySFX("Good_Job2.mp3");
           chonk.riddleSolved = true;
+          chonk.execImg.isVisible = false;
+          dialog.Trigger(DialogTextDict.chonkPuzzleSolved, beans_hamsterdark, beansdark_hamster);
         }
         
 
     }
 
     void handleMousePressed() {
-        if( dialog.isVisible == false) chonk.handleMousePressed();
+      
+        if( dialog.isVisible == false 
+          && book_aphro.subImg.isVisible == false
+          && book_ares.subImg.isVisible == false
+          && book_hades.subImg.isVisible == false
+          && book_poseidon.subImg.isVisible == false
+          && book_zeus.subImg.isVisible == false ) chonk.handleMousePressed();
         
         if( dialog.isVisible == false && chonk.explImg.isVisible == false && chonk.execImg.isVisible == false ) {
           if ( leftButton.isPointInside( mouseX , mouseY ) ) {
@@ -74,7 +81,6 @@ class LibraryScene extends Scene
           book_hades.handleMousePressed();
           book_poseidon.handleMousePressed();
           book_zeus.handleMousePressed();
-            debug_puzzle.handleMousePressed();
           inventory.handleMousePressed();
           //telescope_tube.handleMousePressed();
         }
@@ -82,11 +88,13 @@ class LibraryScene extends Scene
         if( chonk.riddleStarted == true && chonk.explImg.isVisible == true && chonk.buffer == 0 ) chonk.explImg.isVisible = false;
       
       if( dialog.isVisible == true ) dialog.handleMousePressed();
+      
+      if (dialog.dialogEndSignal == true) return;
         
       for( int i = 0; i < container.size(); i++ ) {
         RiddleItem item = container.get(i);
         item.buffer = 0;
-        if( chonk.explImg.isVisible == false && chonk.execImg.isVisible == false ) item.handleMousePressed();
+        if( dialog.isVisible == false && chonk.explImg.isVisible == false && chonk.execImg.isVisible == false ) item.handleMousePressed();
       }
     }
     

@@ -33,7 +33,7 @@ class BrewScene extends Scene
         
         if ( ! ( ( Scene ) stateHandler.currentState ).container.contains( telescope_lens ) && ! inventory.items.contains( telescope_lens ) ) container.add( telescope_lens );
         
-        
+        checkNrOfInventoryTelescopeItems();
         
       for( int i = 0; i < container.size(); i++ ) {
         RiddleItem item = container.get(i);
