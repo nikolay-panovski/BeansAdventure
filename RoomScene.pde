@@ -36,7 +36,8 @@ class RoomScene extends Scene
           firstTime = false;
         }
         
-        if( dialog.isVisible == true && inventory.nrOfTelescopeItems != 2 ) beans.isVisible = false;
+        if( (dialog.isVisible == true && inventory.nrOfTelescopeItems != 2)
+            || chest.subImg.isVisible == true || scrolls.subImg.isVisible == true ) beans.isVisible = false;
         else if( dialog.isVisible == false ) beans.isVisible = true;
         beans.display();
         chest.display();
