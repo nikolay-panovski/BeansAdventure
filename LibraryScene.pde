@@ -54,7 +54,12 @@ class LibraryScene extends Scene
     }
 
     void handleMousePressed() {
-        if( dialog.isVisible == false) chonk.handleMousePressed();
+        if( dialog.isVisible == false 
+          && book_aphro.subImg.isVisible == false
+          && book_ares.subImg.isVisible == false
+          && book_hades.subImg.isVisible == false
+          && book_poseidon.subImg.isVisible == false
+          && book_zeus.subImg.isVisible == false ) chonk.handleMousePressed();
         
         if( dialog.isVisible == false && chonk.explImg.isVisible == false && chonk.execImg.isVisible == false ) {
           if ( leftButton.isPointInside( mouseX , mouseY ) ) {
