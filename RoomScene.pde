@@ -44,6 +44,8 @@ class RoomScene extends Scene
         if( chest.currentValue == chest.requiredValue && chest.riddleSolved == false ) {
           audio.PlaySFX("Good_Job2.mp3");
           chest.riddleSolved = true;
+          chest.subImg.isVisible = false;
+          dialog.Trigger(DialogTextDict.bedroomPuzzleSolved, beans_default);
         }
         if( dialog.isVisible == true ) dialog.display();
         scrolls.display();
@@ -63,6 +65,8 @@ class RoomScene extends Scene
         firstTimeAfterBatRiddleSolved = false;
       }
       
+      if( chest.riddleSolved == true && dialog.isVisible == false && telescope_eye.isVisible == false ) telescope_eye.isVisible = true;
+      
       if( inventory.nrOfTelescopeItems == 3 && telescope.isVisible == false ) {
         telescope.isVisible = true;
       }
@@ -80,9 +84,9 @@ class RoomScene extends Scene
         }
       }
       if( dialog.isVisible == true ) dialog.handleMousePressed();
+      if (dialog.dialogEndSignal == true) return;
       if( scrolls.subImg.isVisible == false && dialog.isVisible == false ) chest.handleMousePressed();
       if( chest.subImg.isVisible == false && dialog.isVisible == false ) scrolls.handleMousePressed();
-      if( chest.riddleSolved == true && telescope_eye.isVisible == false ) telescope_eye.isVisible = true;
       
       // -- test of new DialogBox.Trigger() --
       if (beans.isVisible == true && beans.isPointInside(mouseX, mouseY)) dialog.Trigger(DialogTextDict.introText, beans_default);

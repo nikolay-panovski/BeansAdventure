@@ -205,7 +205,7 @@ class RiddleCharacterChonk extends RiddleCharacter {
       }
       else if ( execImg.isVisible == true && ! isPointInRectangle( mouseX, mouseY, 105, 71, 1020, 771 ) ) {    // exit puzzle: only if you click out of the img
         execImg.isVisible = false;
-        if (riddleSolved == true) dialog.Trigger(DialogTextDict.chonkPuzzleSolved, beans_hamsterdark, beansdark_hamster);
+        //if (riddleSolved == true) dialog.Trigger(DialogTextDict.chonkPuzzleSolved, beans_hamsterdark, beansdark_hamster);
       }
 
 
@@ -252,6 +252,7 @@ class RiddleCharacterChonk extends RiddleCharacter {
 
   void display() {
     // display self (ImageObject default)
+    //if (!((explImg != null && explImg.isVisible) || (execImg != null && execImg.isVisible)))  // if any part of the puzzle is active, do not display character
     super.display();
     // display sub-images (ImageObject default, which btw has the stupid isVisible clause within itself so it's unreadable here)
     explImg.display();

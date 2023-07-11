@@ -2,6 +2,8 @@
 class Scene extends State
 {
   ArrayList<RiddleItem> container = new ArrayList<RiddleItem>();
+  
+  int buffer = 15;
 
   PImage background;
   String filename;
@@ -36,6 +38,12 @@ class Scene extends State
     for ( int i = 0; i < container.size(); i++ ) {
       RiddleItem item = container.get(i);
       item.display();
+    }
+    
+    if (dialog.dialogEndSignal == true) buffer--;
+    if (buffer < 0) {
+      buffer = 0;
+      dialog.dialogEndSignal = false;
     }
   }
 }

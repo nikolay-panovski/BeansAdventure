@@ -184,6 +184,7 @@ class DialogBox extends ImageObject {
       if( textCounter >= currentTextCluster.size()) {
         isVisible = false;
         dialogEndSignal = true;
+        ( ( Scene ) stateHandler.currentState ).buffer += 15;
       }
       else currentText = currentTextCluster.get(textCounter);
       
