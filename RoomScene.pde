@@ -42,7 +42,7 @@ class RoomScene extends Scene
         beans.display();
         chest.display();
         if( chest.currentValue == chest.requiredValue && chest.riddleSolved == false ) {
-          audio.PlaySFX("Good_Job2.mp3");
+          //audio.PlaySFX("Good_Job2.mp3");
           chest.riddleSolved = true;
           chest.subImg.isVisible = false;
           dialog.Trigger(DialogTextDict.bedroomPuzzleSolved, beans_default);

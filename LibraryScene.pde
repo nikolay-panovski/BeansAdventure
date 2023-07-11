@@ -48,7 +48,7 @@ class LibraryScene extends Scene
         if( dialog.isVisible == true ) dialog.display();
         
         if( chonk.currentValue == chonk.requiredValue && chonk.riddleSolved == false ) {
-          audio.PlaySFX("Good_Job2.mp3");
+          //audio.PlaySFX("Good_Job2.mp3");
           chonk.riddleSolved = true;
           chonk.execImg.isVisible = false;
           dialog.Trigger(DialogTextDict.chonkPuzzleSolved, beans_hamsterdark, beansdark_hamster);

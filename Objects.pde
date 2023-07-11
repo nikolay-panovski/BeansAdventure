@@ -46,7 +46,7 @@ class RiddleBook extends NoImageObject {
   void handleMousePressed() {
     if ( subImg.isVisible == false && isPointInside ( mouseX, mouseY ) ) {
       subImg.isVisible = true;
-      audio.PlaySFX("Book_Page.mp3");
+      //audio.PlaySFX("Book_Page.mp3");
     } else if ( subImg.isVisible == true && subImg.isPointInside ( mouseX, mouseY ) ) {
       subImg.isVisible = false;
     }
@@ -215,7 +215,7 @@ class RiddleCharacterChonk extends RiddleCharacter {
       for ( int i = 0; i < sender.size(); i++ ) {
         ImageObject button = sender.get(i);
         if ( button.isPointInside ( mouseX, mouseY ) && buffer == 0  ) {
-          audio.PlaySFX("Pop_Button1.mp3");
+          //audio.PlaySFX("Pop_Button1.mp3");
           buffer += 15;
           button.x += 550;
           button.y = 224 + receiver.size() * 120;
@@ -231,7 +231,7 @@ class RiddleCharacterChonk extends RiddleCharacter {
       }
 
       if ( resetButton.isPointInside( mouseX, mouseY ) ) {
-        audio.PlaySFX("Pop_Button1.mp3");
+        //audio.PlaySFX("Pop_Button1.mp3");
         sender.removeAll(sender);
         receiver.removeAll(receiver);
         sender.add( answer1 );
@@ -262,7 +262,7 @@ class RiddleCharacterChonk extends RiddleCharacter {
     // also mark riddle as started if it isn't, so that on next click the puzzle area with buttons image is shown
     if (riddleSolved == false && dialog.dialogEndSignal == true) { //<>//
       TriggerExplanation();
-      if (riddleStarted == false) { 
+      if (riddleStarted == false) {  //<>//
         riddleStarted = true;
       }
     }

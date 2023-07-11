@@ -66,7 +66,7 @@ class BrewScene extends Scene
                 }
             }
           telescope_lens.isVisible = true;
-          audio.PlaySFX("Good_Job2.mp3");
+          //audio.PlaySFX("Good_Job2.mp3");
         }
   }
     

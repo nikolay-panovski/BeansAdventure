@@ -18,11 +18,11 @@ class MenuScene extends Scene
         if ( startButton.isPointInside( mouseX , mouseY ) ) {
             dialog.Trigger(DialogTextDict.introText, beans_default);
             stateHandler.changeStateTo( ROOM_SCENE );
-            audio.PlaySFX("Pop_Button2.mp3");
+            //audio.PlaySFX("Pop_Button2.mp3");
             audio.PlayMusic("Warm_Casual.mp3");
         }
         if ( quitButton.isPointInside( mouseX , mouseY ) ) {
-            audio.PlaySFX("Pop_Button2.mp3");
+            //audio.PlaySFX("Pop_Button2.mp3");
             exit();
         }
         inventory.handleMousePressed();

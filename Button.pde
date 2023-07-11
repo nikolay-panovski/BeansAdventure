@@ -127,7 +127,7 @@ class DigitButton extends TextButton {
         if( digit >= 9 ) digit = 0;
         else digit++;
       }
-      audio.PlaySFX("Lock_number_Switch.mp3");
+      //audio.PlaySFX("Lock_number_Switch.mp3");
     }
     
     void display() {
