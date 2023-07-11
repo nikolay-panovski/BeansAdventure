@@ -335,7 +335,8 @@ class RiddleCharacterBat extends RiddleCharacter {
   private void markRiddleSolvedAfterItems() {
     if ( riddleSolved == false && inventory.nrOfRiddleItems == 5 ) {
       riddleSolved = true;
-      dialog.Trigger(DialogTextDict.batPuzzleSolved, beansdark_bat, beans_batdark);    // ~~does the TODO above, but its place is technically not here
+      if (inventory.nrOfTelescopeItems < 2) dialog.Trigger(DialogTextDict.batPuzzleSolved, beansdark_bat, beans_batdark);
+      else                                  dialog.Trigger(DialogTextDict.batPuzzleSolvedLast, beansdark_bat, beans_batdark);
       dialog.textCounter++;  // same dirty fix to the same problem as in starting Beans dialog (RoomScene)
     }
   }

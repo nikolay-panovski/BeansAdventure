@@ -9,8 +9,10 @@ public static class DialogTextDict {
    public static StringList batPuzzleReminder = new StringList(); 
    public static StringList batPuzzleCheckout = new StringList(); 
    public static StringList batPuzzleSolved = new StringList(); 
+   public static StringList batPuzzleSolvedLast = new StringList(); 
    public static StringList batPuzzleAftermath = new StringList(); 
    public static StringList bedroomPuzzleInit = new StringList(); 
+   public static StringList bedroomFinal = new StringList(); 
    public static StringList bedroomPuzzleSolved = new StringList(); 
    
    public static StringList endSceneFinale = new StringList();
@@ -65,12 +67,18 @@ public static class DialogTextDict {
       batPuzzleSolved.append("Thanks, that's another part collected!\nWell done player! Where do we go now though?");
       batPuzzleSolved.append("Have you tried looking in your bedroom?\nMaybe the last part wasn't the tower's doing.");
       
+      batPuzzleSolvedLast.append("There you go! That's a nice potion! Well, you deserve\nthis piece now. Good luck finding the last one! :D");
+      batPuzzleSolvedLast.append("Thanks, that's another part collected!\nWell done player! Where do we go now though?");
+      batPuzzleSolvedLast.append("Do you have the telescope eye already?\nYou can rebuild your telescope in your room!");
+      
       batPuzzleAftermath.append("I'd like to chat, but if you're seeing\n this message, your journey is going well,\n so please go do something else.");
       
       bedroomPuzzleInit.append("The bat has a point, I recently cleaned up my room a little\nbit and stuffed a lot of things into that chest over there.");
       bedroomPuzzleInit.append("However, I forgot how to solve the puzzle to open the chest.\nThere should be a scroll with clues somewhere around\nhere. Could you help me out again, player?");
       
-      bedroomPuzzleSolved.append("Well done! Maybe I could finally assemble my telescope again to look at the moon!");
+      bedroomFinal.append("That's it, we have all the pieces! I see the telescope\nhas assembled itself near that chest, let's watch the moon now!");
+      
+      bedroomPuzzleSolved.append("Well done! I see the telescope eye in the chest indeed...\ndo we have all pieces now? My telescope will form here if we do!");
       
       endSceneFinale.append("Thank you for the help! My journey\nends here, just like this game.\nLet's see if they create more content\nin the future!");
    }

@@ -61,7 +61,8 @@ class RoomScene extends Scene
       
       // dirty: access of public variables
       if (((BrewScene)BREW_SCENE).bat.riddleSolved == true && firstTimeAfterBatRiddleSolved == true) {
-        dialog.Trigger(DialogTextDict.bedroomPuzzleInit, beans_default);
+        if ( inventory.nrOfTelescopeItems == 3 ) dialog.Trigger(DialogTextDict.bedroomFinal, beans_default);
+        else                                     dialog.Trigger(DialogTextDict.bedroomPuzzleInit, beans_default);
         firstTimeAfterBatRiddleSolved = false;
       }
       
