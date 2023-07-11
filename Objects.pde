@@ -49,12 +49,15 @@ class RiddleBook extends NoImageObject {
       audio.PlaySFX("Book_Page.mp3");
     } else if ( subImg.isVisible == true && subImg.isPointInside ( mouseX, mouseY ) ) {
       subImg.isVisible = false;
+      audio.PlaySFX("Book_Page.mp3");
     }
   }
 
   void display() {
     super.display();
     subImg.display();
+    if (stateHandler.milliSecondsInState() % 1000 < 80 && dialog.isVisible == false && subImg.isVisible == false && isPointInside(mouseX, mouseY))
+      particles.EmitParticlesOnHover(new PVector(4, 8), new PVector(-40, 40), new PVector(-15, 15), new PVector(192, 255));
   }
 }
 
@@ -106,6 +109,8 @@ class RiddleChest extends ImageObject {
       codeDigit2.display();
       codeDigit3.display();
     }
+    if (stateHandler.milliSecondsInState() % 1000 < 80 && dialog.isVisible == false && subImg.isVisible == false && isPointInside(mouseX, mouseY))
+      particles.EmitParticlesOnHover(new PVector(4, 8), new PVector(-40, 40), new PVector(-15, 15), new PVector(192, 255));
   }
 }
 
@@ -257,6 +262,8 @@ class RiddleCharacterChonk extends RiddleCharacter {
     // display sub-images (ImageObject default, which btw has the stupid isVisible clause within itself so it's unreadable here)
     explImg.display();
     execImg.display();
+    if (stateHandler.milliSecondsInState() % 1000 < 80 && dialog.isVisible == false && explImg.isVisible == false && execImg.isVisible == false && isPointInside(mouseX, mouseY)) //<>//
+      particles.EmitParticlesOnHover(new PVector(4, 8), new PVector(-40, 40), new PVector(-15, 15), new PVector(192, 255));
     
     // if character has clicked and triggered the initial dialogue and it has ended, show puzzle book image immediately
     // also mark riddle as started if it isn't, so that on next click the puzzle area with buttons image is shown
@@ -344,6 +351,9 @@ class RiddleCharacterBat extends RiddleCharacter {
   void display() {
     // display self (ImageObject default)
     super.display();
+    
+    if (stateHandler.milliSecondsInState() % 1000 < 80 && dialog.isVisible == false /*&& explImg.isVisible == false && execImg.isVisible == false*/ && isPointInside(mouseX, mouseY))
+      particles.EmitParticlesOnHover(new PVector(4, 8), new PVector(-40, 40), new PVector(-15, 15), new PVector(192, 255));
     
     // if character has clicked and triggered the initial dialogue and it has ended, mark riddle as started
     // (updates active dialogue) (an Update()'s job, but is it a display()'s job?)

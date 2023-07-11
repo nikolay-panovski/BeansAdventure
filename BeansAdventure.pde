@@ -25,6 +25,8 @@ public PImage beansdark_hamster;
 public PImage     beans_batdark;
 public PImage     beansdark_bat;
 
+ParticleSystem particles;
+
 // ============ SETUP/DRAW ============
 
 void setup() {
@@ -35,12 +37,15 @@ void setup() {
     customizeCursorImage();
     initStateHandler(MENU_SCENE);  // change start scene name here
     initImages();
+    particles = new ParticleSystem();
 }
 
 
 void draw() {
     stateHandler.executeCurrentStateStep();
     if( stateHandler.getStateName() != "MenuScene" ) inventory.display();
+    
+    particles.run();
 }
 
 

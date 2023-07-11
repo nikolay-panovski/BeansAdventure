@@ -26,5 +26,8 @@ class MenuScene extends Scene
             exit();
         }
         inventory.handleMousePressed();
+        
+        audio.PlaySFX("Pop_Button2.mp3");
+        particles.EmitParticlesOnClick(new PVector(10, 20), new PVector(-25, 25), new PVector(-10, 10), new PVector(127, 255));
     }
 }

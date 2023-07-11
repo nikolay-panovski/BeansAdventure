@@ -127,7 +127,8 @@ class StateHandler
     long   milliSecondsInState() { return ( System.nanoTime() - nsAtStateStart ) /    1000000 ; }
 
 
-    void handleMousePressed()  { if ( currentState != null ) currentState.handleMousePressed();  }
+    void handleMousePressed()  { if ( currentState != null ) currentState.handleMousePressed(); 
+      /*particles.EmitParticlesOnClick(new PVector(10, 20), new PVector(-25, 25), new PVector(-10, 10), new PVector(127, 255));*/  }
     void handleMouseClicked()  { if ( currentState != null ) currentState.handleMouseClicked();  }
     void handleMouseReleased() { if ( currentState != null ) currentState.handleMouseReleased(); }
     void handleMouseDragged()  { if ( currentState != null ) currentState.handleMouseDragged();  }

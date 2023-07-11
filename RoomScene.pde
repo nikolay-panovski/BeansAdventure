@@ -84,6 +84,13 @@ class RoomScene extends Scene
             audio.PlayMusic("another_chance_to_live.mp3");
         }
       }
+      
+      if( dialog.isVisible == false && chest.subImg.isVisible == false && scrolls.subImg.isVisible == false /*would leave "true", but if the highlight works, it would be too annoying */ )
+      {    
+        audio.PlaySFX("Pop_Button2.mp3");
+        particles.EmitParticlesOnClick(new PVector(10, 20), new PVector(-25, 25), new PVector(-10, 10), new PVector(127, 255));
+      }
+      
       if( dialog.isVisible == true ) dialog.handleMousePressed();
       if (dialog.dialogEndSignal == true) return;
       if( scrolls.subImg.isVisible == false && dialog.isVisible == false ) chest.handleMousePressed();

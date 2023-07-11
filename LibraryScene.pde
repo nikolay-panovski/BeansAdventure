@@ -65,6 +65,8 @@ class LibraryScene extends Scene
           && book_hades.subImg.isVisible == false
           && book_poseidon.subImg.isVisible == false
           && book_zeus.subImg.isVisible == false ) chonk.handleMousePressed();
+          
+        if( dialog.isVisible == false && chonk.execImg.isVisible == false ) { audio.PlaySFX("Pop_Button2.mp3"); particles.EmitParticlesOnClick(new PVector(10, 20), new PVector(-25, 25), new PVector(-10, 10), new PVector(127, 255)); }
         
         if( dialog.isVisible == false && chonk.explImg.isVisible == false && chonk.execImg.isVisible == false ) {
           if ( leftButton.isPointInside( mouseX , mouseY ) ) {

@@ -48,6 +48,9 @@ class BrewScene extends Scene
 
     void handleMousePressed() {
       super.handleMousePressed();
+      
+        if( dialog.isVisible == false ) { audio.PlaySFX("Pop_Button2.mp3"); particles.EmitParticlesOnClick(new PVector(10, 20), new PVector(-25, 25), new PVector(-10, 10), new PVector(127, 255)); }
+      
         if ( leftButton.isPointInside( mouseX , mouseY ) ) {
             stateHandler.changeStateTo( LIBRARY_SCENE );
             inventory.isVisible = false;
