@@ -1,5 +1,8 @@
 // ============ FIELD/OBJECT INITIALIZATION ============
 PFont mainFont;
+float mainFontSize = 32;
+float highlightFontSize = 44;
+
 PImage cursorImage;
 MinimAudio audio;
 
@@ -63,7 +66,7 @@ private void initAudioPlayer() {
 }
 
 private void initTextFont() {
-  mainFont = createFont( "ArbeiBerry-rg3Ky.ttf", 32 );
+  mainFont = createFont( "ArbeiBerry-rg3Ky.ttf", mainFontSize );
 }
 
 private void customizeCursorImage() {
