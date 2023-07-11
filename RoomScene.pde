@@ -90,7 +90,7 @@ class RoomScene extends Scene
       if( chest.subImg.isVisible == false && dialog.isVisible == false ) scrolls.handleMousePressed();
       
       // -- test of new DialogBox.Trigger() --
-      if (beans.isVisible == true && beans.isPointInside(mouseX, mouseY)) dialog.Trigger(DialogTextDict.introText, beans_default);
+      if (beans.isVisible == true && beans.isPointInside(mouseX, mouseY)) dialog.Trigger(DialogTextDict.introCallToAction, beans_default);
       // -- end of test --
       
       inventory.handleMousePressed();

@@ -1,6 +1,7 @@
 public static class DialogTextDict {
    // declare lists with fitting names here
    public static StringList introText = new StringList(); 
+   public static StringList introCallToAction = new StringList(); 
    public static StringList chonkPuzzleInit = new StringList(); 
    public static StringList chonkPuzzleAfterBook = new StringList(); 
    public static StringList chonkPuzzleSolved = new StringList(); 
@@ -37,6 +38,8 @@ public static class DialogTextDict {
       introText.append("Let's see... where might the parts be? Let's check the\nlibrary room first. Those books might be helpful if I read\nthem after all.");
       introText.append("If you are done reading something, just press outside\nof it to close it again.");  // added for navigation clarity for popup windows
       introText.append("Oh, by the way, feel free to see what we have collected\nwith the 'I' button. You can press 'I' again to\nhide that out of view.");
+      
+      introCallToAction.append("Let's get going then! Do you want to explore,\nor look for interesting stuff here?");
       
       chonkPuzzleInit.append("Let me guess, you're here because the tower wanted you\nto be?");
       chonkPuzzleInit.append("How did you know?");
